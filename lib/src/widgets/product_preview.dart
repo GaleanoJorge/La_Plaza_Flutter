@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:la_plaza/src/models/bazzaio_model.dart';
 import 'package:intl/intl.dart';
-import 'package:la_plaza/src/providers/amout.dart';
+import 'package:la_plaza/src/utils/amout.dart';
 
 class ProductPreview extends StatelessWidget {
   final Product product;

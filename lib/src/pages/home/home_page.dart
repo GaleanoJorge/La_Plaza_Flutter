@@ -116,7 +116,7 @@ class _HomeState extends State<Home> {
 
   Widget _request() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.7,
+      height: MediaQuery.of(context).size.height * 0.6,
       child: _productList(),
     );
   }

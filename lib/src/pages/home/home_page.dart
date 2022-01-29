@@ -43,8 +43,10 @@ class _HomeState extends State<Home> {
         const SizedBox(
           height: 30,
         ),
-        Image.asset('assets/title.png',
-        height: 70,),
+        Image.asset(
+          'assets/title.png',
+          height: 70,
+        ),
         // const Text(utils.Values.titleApp),
         const SizedBox(
           height: 30,
@@ -58,7 +60,10 @@ class _HomeState extends State<Home> {
                 child: Container(
                   decoration: BoxDecoration(color: Colors.black12),
                   child: TextFormField(
-                    controller: _con.serchController,
+                    onChanged: (val) {
+                      _con.textChange(val);
+                    },
+                    controller: _con.searchController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: '   Buscar',
@@ -101,7 +106,11 @@ class _HomeState extends State<Home> {
   Widget _body() {
     return Container(
       width: MediaQuery.of(context).size.width,
-      child: _con.bazzaio != null ? _request() : _noResults(),
+      child: !_con.hasPressed
+          ? _list()
+          : _con.bazzaio != null
+              ? _request()
+              : _noResults(),
     );
   }
 
@@ -134,28 +143,66 @@ class _HomeState extends State<Home> {
   }
 
   Widget _provicionalProductView(Product product) {
-    return ProductPreview(onPress: () {_con.sendProduct(product);}, product: product);
+    return ProductPreview(
+        onPress: () {
+          _con.sendProduct(product);
+        },
+        product: product);
   }
 
   Widget _noResults() {
     return Center(
-      child: _con.primeraBusqueda? Container(child: Column(
-        children: [
-          const SizedBox(
-          height: 80,
-        ),
-          Image.asset('assets/vacio.png', height: 200,),
-        ],
-      )) : _primeraBusqueda(),
+      child: _con.primeraBusqueda
+          ? Container(
+              child: Column(
+              children: [
+                const SizedBox(
+                  height: 80,
+                ),
+                Image.asset(
+                  'assets/vacio.png',
+                  height: 200,
+                ),
+              ],
+            ))
+          : _primeraBusqueda(),
     );
   }
 
   Widget _primeraBusqueda() {
-    return Center(
-      child: Icon(Icons.search, size: 100, color: Colors.grey,),
+    return const Center(
+      child: Icon(
+        Icons.search,
+        size: 100,
+        color: Colors.grey,
+      ),
+    );
+  }
+
+  Widget _list() {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.5,
+      width: 100,
+      child: ListView.builder(
+          itemCount: _con.busquedas.length,
+          itemBuilder: (contaxt, index) {
+            return Align(
+              alignment: Alignment.topLeft,
+              child: RaisedButton.icon(
+                  color: Colors.white,
+                  elevation: 0,
+                  onPressed: () {
+                    _con.searchController.text = _con.busquedas[index];
+                    _con.isSearched = false;
+                    refresh();
+                    _con.buscar();
+                  },
+                  icon: const Icon(Icons.history),
+                  label: Text(_con.busquedas[index])),
+            );
+          }),
     );
   }
 
   void refresh() => setState(() {});
-
 }

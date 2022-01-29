@@ -1,16 +1,20 @@
 # la_plaza
 
-A new Flutter project.
+App e comerce productos de mercado
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+App móvil que pemite realiza compras de productos de mercado.
 
-A few resources to get you started if this is your first Flutter project:
+Búsqueda de productos mediante api rest.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Lirerías de flutter usadas:
+- http: ^0.13.4 para la comunicación con la api.
+- shared_preferences: ^2.0.12 para guardar el historial de búsqueda de forma local.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Versión de flutter: 2.8.1
+Versión Dart: 2.15.1.
+
+Ruta del apk: la_plaza\build\app\outputs\flutter-apk
+
+Thank you!!.

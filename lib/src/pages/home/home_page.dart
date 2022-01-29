@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:la_plaza/src/models/bazzaio_model.dart';
 import 'package:la_plaza/src/pages/home/home_controller.dart';
-import 'package:la_plaza/src/utils/values.dart' as utils;
 import 'package:la_plaza/src/widgets/product_preview.dart';
 
 class Home extends StatefulWidget {

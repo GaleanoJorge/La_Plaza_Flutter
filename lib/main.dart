@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       ),
       routes: {
         '/home' : (context) => Home(),
-        '/detail' : (context) => Detal(),
+        '/detail' : (context) => Detail(),
       },
     );
   }

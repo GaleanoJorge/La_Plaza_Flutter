@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:la_plaza/src/models/bazzaio_model.dart';
 import 'package:intl/intl.dart';
+import 'package:la_plaza/src/providers/amout.dart';
 
 class ProductPreview extends StatelessWidget {
   final Product product;
   final VoidCallback onPress;
   final format = NumberFormat("#,##0.00", "en_US");
+  late AmountCop _amountCop;
 
-  ProductPreview({
+  ProductPreview({Key? key, 
     required this.onPress,
     required this.product,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    _amountCop = AmountCop(product.precio, product.valorPromo);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: SizedBox(
@@ -111,7 +114,7 @@ class ProductPreview extends StatelessWidget {
                   Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        '\$ ${format.format(double.parse(product.precio))} COP',
+                        _amountCop.getValor(),
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           decoration: TextDecoration.lineThrough,
@@ -123,7 +126,7 @@ class ProductPreview extends StatelessWidget {
                   Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        '\$ ${format.format(double.parse(newValue(product.precio, product.valorPromo)))} COP',
+                        _amountCop.getDescuento(),
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           color: Colors.black,
@@ -150,15 +153,5 @@ class ProductPreview extends StatelessWidget {
             )),
       ),
     );
-  }
-
-  String newValue(String valor, String porcentaje) {
-    double value = double.parse(valor);
-    double per = double.parse(porcentaje) / 100;
-
-    // int res = int.parse(((value * (1 - per))/50).toStringAsFixed(0));
-
-    // return (res*50).toStringAsFixed(0);
-    return (value * (1 - per)).toStringAsFixed(0);
   }
 }

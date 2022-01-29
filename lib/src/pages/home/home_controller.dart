@@ -14,6 +14,7 @@ class HomeController {
   TextEditingController serchController = TextEditingController();
 
   bool isSearched = true;
+  bool primeraBusqueda = false;
 
   Future? init(BuildContext context, Function refresh) {
     this.context = context;
@@ -23,6 +24,8 @@ class HomeController {
   }
 
   void buscar() async {
+    primeraBusqueda = true;
+    bazzaio = null;
     bazzaio = await _bazzaioProvider.search('');
     isSearched = true;
     refresh();

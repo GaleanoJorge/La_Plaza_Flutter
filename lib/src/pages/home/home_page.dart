@@ -139,9 +139,23 @@ class _HomeState extends State<Home> {
 
   Widget _noResults() {
     return Center(
-      child: Text('No se encontraron resultados'),
+      child: _con.primeraBusqueda? Container(child: Column(
+        children: [
+          const SizedBox(
+          height: 80,
+        ),
+          Image.asset('assets/vacio.png', height: 200,),
+        ],
+      )) : _primeraBusqueda(),
+    );
+  }
+
+  Widget _primeraBusqueda() {
+    return Center(
+      child: Icon(Icons.search, size: 100, color: Colors.grey,),
     );
   }
 
   void refresh() => setState(() {});
+
 }

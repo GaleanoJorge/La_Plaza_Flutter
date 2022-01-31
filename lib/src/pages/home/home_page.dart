@@ -13,6 +13,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final HomeController _con = HomeController();
+  final double _altura = 225;
 
   @override
   void initState() {
@@ -37,59 +38,61 @@ class _HomeState extends State<Home> {
   }
 
   Widget _header() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const SizedBox(
-          height: 30,
-        ),
-        Image.asset(
-          'assets/title.png',
-          height: 70,
-        ),
-        // const Text(utils.Values.titleApp),
-        const SizedBox(
-          height: 30,
-        ),
-        Form(
-            key: _con.keyForm,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+    return SizedBox(
+      height: _altura,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(
+            height: 30,
+          ),
+          Image.asset(
+            'assets/title.png',
+            height: 70,
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Form(
+              key: _con.keyForm,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(color: Colors.black12),
-                  child: TextFormField(
-                    onChanged: (val) {
-                      _con.textChange(val);
-                    },
-                    controller: _con.searchController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: '   Buscar',
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          _con.isSearched = false;
-                          refresh();
-                          _con.buscar();
-                        },
-                        icon: const Icon(
-                          Icons.search,
-                          color: Colors.black,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: const BoxDecoration(color: Colors.black12),
+                    child: TextFormField(
+                      onChanged: (val) {
+                        _con.textChange(val);
+                      },
+                      controller: _con.searchController,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        hintText: '   Buscar',
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            _con.isSearched = false;
+                            refresh();
+                            _con.buscar();
+                          },
+                          icon: const Icon(
+                            Icons.search,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
+                      validator: (validate) {
+                        if (validate == null || validate.isEmpty) {
+                          return 'Buscar';
+                        }
+                        return null;
+                      },
                     ),
-                    validator: (validate) {
-                      if (validate == null || validate.isEmpty) {
-                        return 'Buscar';
-                      }
-                      return null;
-                    },
                   ),
                 ),
-              ),
-            )),
-      ],
+              )),
+        ],
+      ),
     );
   }
 
@@ -104,7 +107,7 @@ class _HomeState extends State<Home> {
   }
 
   Widget _body() {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: !_con.hasPressed
           ? _list()
@@ -116,7 +119,7 @@ class _HomeState extends State<Home> {
 
   Widget _request() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.6,
+      height: MediaQuery.of(context).size.height - _altura,
       child: _productList(),
     );
   }
@@ -153,18 +156,17 @@ class _HomeState extends State<Home> {
   Widget _noResults() {
     return Center(
       child: _con.primeraBusqueda
-          ? Container(
-              child: Column(
-              children: [
-                const SizedBox(
-                  height: 80,
-                ),
-                Image.asset(
-                  'assets/vacio.png',
-                  height: 200,
-                ),
-              ],
-            ))
+          ? Column(
+          children: [
+            const SizedBox(
+              height: 80,
+            ),
+            Image.asset(
+              'assets/vacio.png',
+              height: 200,
+            ),
+          ],
+            )
           : _primeraBusqueda(),
     );
   }
